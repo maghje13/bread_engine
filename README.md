@@ -23,15 +23,21 @@ import bread_engine
 
 class Player(bread_engine.Rect):
     def __init__(self):
-        super().__init__(100, 100, 50, 50, bread_engine.Color.GREEN)
+        super().__init__(100, 100, 50, 50, bread_engine.Color.GREEN, has_physics="gravity")
+        self.ground_level = engine.window_height - self.rect.height
+        self.gravity = 0.4
+        self.velocity_y = 0
 
     def update(self):
-        self.rect.x += 1
+        keys = bread_engine.KeyHandler.get_pressed_keys()
 
-class Player2(bread_engine.Rect):
-    def __init__(self):
-        super().__init__(100, 200, 50, 50, bread_engine.Color.BLACK, has_physics="gravity")
-        self.ground_level = engine.window_height - self.rect.height
+        if keys[bread_engine.KeyHandler.Key.A] or keys[bread_engine.KeyHandler.Key.LEFT]:
+            self.rect.x -= 4
+        if keys[bread_engine.KeyHandler.Key.D] or keys[bread_engine.KeyHandler.Key.RIGHT]:
+            self.rect.x += 4
+
+        if keys[bread_engine.KeyHandler.Key.SPACE] and self.rect.y == self.ground_level:
+            self.velocity_y = -10
 
 def cube_update(cube):
     cube.rect.x += 1
@@ -39,17 +45,14 @@ def cube_update(cube):
 def different_cube_update(cube):
     cube.rect.x += 2
 
-engine = bread_engine.Engine(debug=True, window_vsync=True, exit_bind=bread_engine.KeyHandler.Keys.escape)
+engine = bread_engine.Engine(debug=True, window_vsync=True, exit_bind=bread_engine.KeyHandler.Key.ESCAPE)
+
+cube = bread_engine.Rect(200, 100, 50, 50, bread_engine.Color.RED, update_function=cube_update)
 
 player = Player()
 
-cube = bread_engine.Rect(200, 100, 50, 50, bread_engine.Color.RED, update_function=cube_update)
-cube.update_function = different_cube_update # Swap out update functions after initialization
-player2 = Player2() # Cube with gravity
-
 engine.add_object(player)
 engine.add_object(cube)
-engine.add_object(player2)
 
 engine.run()
 ```
