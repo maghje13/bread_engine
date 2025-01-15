@@ -1,6 +1,5 @@
 import pygame
 from .color import Color
-from .keyhandler import KeyHandler
 
 class Engine:
     def __init__(self, debug=False, window_width=800, window_height=600, window_resizable=False, window_vsync=False,
@@ -25,7 +24,6 @@ class Engine:
         )
 
         if self.debug: print("Initializing: Game Elements")
-
         self.clock = pygame.time.Clock()
         self.objects = []
         self.running = True
