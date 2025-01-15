@@ -1,15 +1,24 @@
-Bread Engine
-The bread engine is a basic "game engine" made using PyGame. The engine allows you to create games much easier and is fully compatible with PyGame.
+# [Bread Engine](https://pypi.org/project/bread-engine/)
+The bread engine is a basic "game engine" made using PyGame.
+The engine allows you to create games much easier and is fully compatible with PyGame.
 
-Example usage:
+## Example usage:
+```python
 import bread_engine
 
 engine = bread_engine.Engine()
 
 engine.run()
-Installation
+```
+
+## Installation
+```shell
+pip install pygame
 pip install bread_engine
-More examples:
+```
+
+## More examples:
+```python
 import bread_engine
 
 class Player(bread_engine.Rect):
@@ -43,4 +52,6 @@ engine.add_object(cube)
 engine.add_object(player2)
 
 engine.run()
+```
+
 I recommend taking a look at the source code for a better understanding of the engine!
